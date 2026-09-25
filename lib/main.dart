@@ -74,117 +74,19 @@ class MainShell extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final cats = ['أذكار الصباح', 'أذكار المساء', 'أذكار النوم', 'بعد الصلاة', 'أذكار عامة'];
-    return SafeArea(
-      child: CustomScrollView(
-        slivers: [
-          SliverAppBar.large(
-            title: const Text('أذكاري'),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SearchPage()),
-                ),
-              ),
-            ],
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'وَاذْكُر رَّبَّكَ إِذَا نَسِيتَ',
-                            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'ابدأ يومك بالذكر والطمأنينة',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 18),
-                  const Text(
-                    'الوصول السريع',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cats.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.55,
-                    ),
-                    itemBuilder: (_, i) => Card(
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CategoryPage(category: cats[i]),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            cats[i],
-                            style: const TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Card(
-                    child: ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.explore)),
-                      title: const Text('القبلة'),
-                      subtitle: const Text('احسب اتجاه القبلة من موقعك'),
-                      trailing: const Icon(Icons.chevron_left),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const QiblaPage()),
-                      ),
-                    ),
-                  ),
-                  Card(
-                    child: ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.access_time)),
-                      title: const Text('مواقيت الصلاة'),
-                      subtitle: const Text('صفحة جاهزة لإضافة مواقيت منطقتك'),
-                      trailing: const Icon(Icons.chevron_left),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const PrayerTimesPage()),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  @override Widget build(BuildContext context) {
+    final cats = ['أذكار الصباح','أذكار المساء','أذكار النوم','بعد الصلاة','أذكار عامة'];
+    return SafeArea(child: CustomScrollView(slivers: [
+      SliverAppBar.large(title: const Text('أذكاري'), actions: [IconButton(icon: const Icon(Icons.search), onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SearchPage()))) ]),
+      SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Card(child: Padding(padding: const EdgeInsets.all(20), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('وَاذْكُر رَّبَّكَ إِذَا نَسِيتَ', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)), SizedBox(height: 8), Text('ابدأ يومك بالذكر والطمأنينة', style: TextStyle(fontSize: 16))])),
+        const SizedBox(height: 18), const Text('الوصول السريع', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)), const SizedBox(height: 10),
+        GridView.builder(shrinkWrap: true, physics: const NeverScrollableScrollPhysics(), itemCount: cats.length, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.55), itemBuilder: (_, i) => Card(child: InkWell(borderRadius: BorderRadius.circular(16), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CategoryPage(category: cats[i]))), child: Center(child: Text(cats[i], style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600))))),
+        const SizedBox(height: 12),
+        Card(child: ListTile(leading: const CircleAvatar(child: Icon(Icons.explore)), title: const Text('القبلة'), subtitle: const Text('احسب اتجاه القبلة من موقعك'), trailing: const Icon(Icons.chevron_left), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const QiblaPage())))),
+        Card(child: ListTile(leading: const CircleAvatar(child: Icon(Icons.access_time)), title: const Text('مواقيت الصلاة'), subtitle: const Text('صفحة جاهزة لإضافة مواقيت منطقتك'), trailing: const Icon(Icons.chevron_left), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerTimesPage())))),
+      ])))
+    ]));
   }
 }
 

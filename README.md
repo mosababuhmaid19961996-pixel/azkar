@@ -1,32 +1,34 @@
 # أذكاري | Athkari
 
-نسخة Flutter عربية مبسطة من تطبيق أذكاري، مع Android حديث وGitHub Actions لبناء APK.
+مشروع Flutter عربي لأذكار المسلم، مُعاد بناؤه مع Android embedding v2 وGitHub Actions لبناء APK.
 
-## ما تم إصلاحه
-- إصلاح أخطاء Dart في الصفحة الرئيسية.
-- إزالة اختبار Flutter التجريبي الذي كان يبحث عن `MyApp` غير موجود.
-- Android embedding v2.
-- صلاحيات الموقع للقبلة.
-- Workflow يعيد إنشاء Android نظيف ثم يحلل المشروع ويبني APK.
+## المزايا
+- الأذكار والتصنيفات.
+- البحث.
+- المفضلة مع الحفظ المحلي.
+- عداد التسبيح مع هدف.
+- الوضع الليلي.
+- اتجاه القبلة باستخدام الموقع.
+- صفحة أوقات الصلاة كواجهة جاهزة للإكمال.
 
-## البناء عبر GitHub Actions
-بعد رفع المشروع إلى الفرع `main`:
-1. افتح **Actions**.
-2. اختر **Build Android APK**.
-3. انتظر حتى تظهر علامة صح خضراء.
-4. افتح التشغيل الناجح ثم قسم **Artifacts** وحمّل `athkari-release-apk`.
+## البناء على GitHub
+Workflow موجود في `.github/workflows/main.yml` ويقوم بـ:
+1. تثبيت Flutter stable.
+2. تثبيت الاعتمادات.
+3. إعادة إنشاء Android host حديث بواسطة `flutter create --platforms=android .` لتجنب Android v1 embedding.
+4. إضافة صلاحيات الموقع.
+5. حذف ملف Flutter التجريبي `test/widget_test.dart` حتى لا يظهر خطأ `MyApp isn't a class`.
+6. بناء APK release.
+7. رفع APK كـ Artifact باسم `athkari-release-apk`.
 
-## البناء المحلي
+## البناء محلياً
 ```bash
 flutter pub get
 flutter run
 flutter build apk --release
 ```
 
-ملف APK سيكون في:
+ملف APK بعد البناء:
 `build/app/outputs/flutter-apk/app-release.apk`
 
-> لم يتم وضع مواقيت صلاة فعلية افتراضية؛ الصفحة تعرض حقولًا مؤقتة إلى أن يتم ربطها بخدمة موثوقة.
-
-
-ملاحظة: GitHub Actions يحذف اختبار Flutter الافتراضي الذي ينشئه flutter create لأنه يستخدم MyApp التجريبي.
+> لم يتم تضمين `test/widget_test.dart` في هذه النسخة.
