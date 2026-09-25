@@ -27,7 +27,15 @@ jobs:
 
       - name: Remove old test files
         run: rm -rf test
-
+      - name: Clean hidden spaces
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("lib/main.dart")
+          s = p.read_text()
+          s = s.replace("\u00A0", " ")
+          p.write_text(s)
+          PY
       - name: Add location permissions
         run: |
           python3 - <<'PY'
