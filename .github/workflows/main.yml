@@ -19,13 +19,9 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Get dependencies
-        run: flutter pub get
+      - name: Remove old test files
+        run: rm -rf test
 
-      - name: Recreate Android project
-        run: rm -rf android && flutter create --platforms=android . 
-        name: Remove old test files
-        run: rm -rf test 
       - name: Clean hidden spaces
         run: |
           python3 - <<'PY'
@@ -35,6 +31,17 @@ jobs:
           s = s.replace("\u00A0", " ")
           p.write_text(s)
           PY
+
+      - name: Create fresh Android project
+        run: |
+          rm -rf android
+          rm -rf /tmp/athkar_template
+          flutter create -t app --platforms=android /tmp/athkar_template
+          cp -R /tmp/athkar_template/android ./android
+
+      - name: Get dependencies
+        run: flutter pub get
+
       - name: Add location permissions
         run: |
           python3 - <<'PY'
@@ -65,3 +72,4 @@ jobs:
         with:
           name: athkari-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          
